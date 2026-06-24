@@ -19,6 +19,7 @@ export default function AmbientBackground({
 
     // Non-null assertion so TypeScript is happy inside nested functions
     const c = canvas as HTMLCanvasElement
+    const cx = ctx as CanvasRenderingContext2D
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
     let width = 0
@@ -31,7 +32,7 @@ export default function AmbientBackground({
       height = c.clientHeight
       c.width = Math.floor(width * dpr)
       c.height = Math.floor(height * dpr)
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0)
       const count = Math.min(70, Math.max(26, Math.floor((width * height) / 24000)))
       points = Array.from({ length: count }, () => ({
         x: Math.random() * width,
@@ -43,7 +44,7 @@ export default function AmbientBackground({
     }
 
     function draw() {
-      ctx.clearRect(0, 0, width, height)
+      cx.clearRect(0, 0, width, height)
       for (let i = 0; i < points.length; i++) {
         const a = points[i]
         for (let j = i + 1; j < points.length; j++) {
@@ -53,22 +54,22 @@ export default function AmbientBackground({
           const dist = Math.hypot(dx, dy)
           if (dist < 134) {
             const alpha = (1 - dist / 134) * 0.16
-            ctx.strokeStyle = `rgba(155,180,215,${alpha})`
-            ctx.lineWidth = 1
-            ctx.beginPath()
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(b.x, b.y)
-            ctx.stroke()
+            cx.strokeStyle = `rgba(155,180,215,${alpha})`
+            cx.lineWidth = 1
+            cx.beginPath()
+            cx.moveTo(a.x, a.y)
+            cx.lineTo(b.x, b.y)
+            cx.stroke()
           }
         }
       }
       for (const p of points) {
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.amber ? 1.7 : 1.3, 0, Math.PI * 2)
-        ctx.fillStyle = p.amber
+        cx.beginPath()
+        cx.arc(p.x, p.y, p.amber ? 1.7 : 1.3, 0, Math.PI * 2)
+        cx.fillStyle = p.amber
           ? 'rgba(255,179,71,0.78)'
           : 'rgba(175,196,226,0.72)'
-        ctx.fill()
+        cx.fill()
       }
     }
 

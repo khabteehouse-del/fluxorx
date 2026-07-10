@@ -97,7 +97,7 @@ export default function AppShell({
           }`}
         >
           <div className="mb-10 px-2 font-display text-lg font-semibold tracking-tight">
-            Beyond<span className="text-[#FFB347]">IQ</span>
+            Fluxor<span className="text-[#FFB347]">X</span>
           </div>
 
           <nav className="flex flex-1 flex-col gap-8">

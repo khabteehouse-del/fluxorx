@@ -38,7 +38,7 @@ function buildHtml(payload: {
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td style="font-size:20px;font-weight:600;color:#EDF1F6;letter-spacing:-0.02em;">
-                Beyond<span style="color:#FFB347;">IQ</span>
+                Fluxor<span style="color:#FFB347;">X</span>
               </td>
               <td align="right" style="font-size:10px;font-family:monospace;color:#566174;letter-spacing:0.1em;">
                 AUTOMATED ALERT

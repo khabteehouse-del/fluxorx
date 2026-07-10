@@ -67,7 +67,7 @@ export default function LoginPage() {
             transition={{ duration: 0.6, delay: 1.4, ease: 'easeOut' }}
             className="font-display text-2xl font-semibold tracking-tight"
           >
-            Beyond<span className="text-[#FFB347]">IQ</span>
+            Fluxor<span className="text-[#FFB347]">X</span>
           </motion.div>
 
           <motion.div
@@ -112,7 +112,7 @@ export default function LoginPage() {
           >
             <div className="mb-8 lg:hidden">
               <div className="font-display text-xl font-semibold">
-                Beyond<span className="text-[#FFB347]">IQ</span>
+                Fluxor<span className="text-[#FFB347]">X</span>
               </div>
               <h1 className="mt-6 font-display text-[1.7rem] font-semibold leading-[1.18] tracking-tight">
                 Operations, in one command center.

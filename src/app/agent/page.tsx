@@ -244,7 +244,7 @@ export default function AgentPage() {
       <div className="mx-auto flex max-w-4xl flex-col">
 
         {/* Reactor */}
-        <div className="relative flex flex-col items-center py-2" style={{ zIndex: 1, overflow: 'hidden' }}>
+        <div className="relative flex flex-col items-center pt-0 pb-1" style={{ zIndex: 1, overflow: 'hidden' }}>
           <div style={{ width: 220, height: 220, position: 'relative', zIndex: 1, overflow: 'visible' }}>
             <div style={{ position: 'absolute', top: '50%', left: '50%', width: 300, height: 300, transform: 'translate(-50%, -50%)', overflow: 'visible' }}>
               <AIReactor mode={mode} />
@@ -296,7 +296,7 @@ export default function AgentPage() {
         {/* Chat thread */}
         <div className="min-h-0 overflow-y-auto px-2 pb-2" style={{ height: 340 }}>
           {messages.length === 0 && (
-            <div className="flex h-full flex-col items-center justify-center text-center">
+            <div className="flex h-full flex-col items-center justify-start pt-4 text-center">
               <div className="font-display text-lg font-semibold text-[#EDF1F6]">
                 Ask FluxorX anything about your data
               </div>

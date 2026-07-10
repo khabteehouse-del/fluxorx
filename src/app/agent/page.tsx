@@ -241,7 +241,7 @@ export default function AgentPage() {
 
   return (
     <AppShell title="AI Agent">
-      <div className="mx-auto flex max-w-4xl flex-col" style={{ height: 'calc(100vh - 80px)' }}>
+      <div className="mx-auto flex max-w-4xl flex-col">
 
         {/* Reactor */}
         <div className="relative flex flex-col items-center py-2" style={{ zIndex: 1, overflow: 'hidden' }}>
@@ -294,7 +294,7 @@ export default function AgentPage() {
         </AnimatePresence>
 
         {/* Chat thread */}
-        <div className="min-h-0 flex-1 overflow-y-auto px-2 pb-2">
+        <div className="min-h-0 overflow-y-auto px-2 pb-2" style={{ height: 340 }}>
           {messages.length === 0 && (
             <div className="flex h-full flex-col items-center justify-center text-center">
               <div className="font-display text-lg font-semibold text-[#EDF1F6]">
@@ -432,7 +432,7 @@ export default function AgentPage() {
         </div>
 
         {/* Input */}
-        <div className="sticky bottom-0 z-10 border-t border-white/[0.08] bg-[#06080D] px-2 pb-3 pt-3">
+        <div className="border-t border-white/[0.08] px-2 pb-3 pt-3">
           {messages.length > 0 && (
             <div className="mb-2 flex flex-wrap gap-1.5 px-1">
               {SUGGESTIONS.slice(0, 3).map(s => (

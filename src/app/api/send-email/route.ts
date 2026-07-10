@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 const RECIPIENT = 'khabteehouse@gmail.com'
-const FROM      = 'BeyondIQ Alerts <onboarding@resend.dev>'
+const FROM      = 'FluxorX Alerts <onboarding@resend.dev>'
 
 function buildHtml(payload: {
   title: string
@@ -84,7 +84,7 @@ function buildHtml(payload: {
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td style="font-size:11px;color:#3A4555;">
-                Sent by BeyondIQ · ${payload.sentAt}
+                Sent by FluxorX · ${payload.sentAt}
               </td>
               <td align="right" style="font-size:10px;font-family:monospace;color:#2A3444;letter-spacing:0.1em;">
                 DETERMINISTIC AI · ZERO HALLUCINATION
@@ -126,7 +126,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         from: FROM,
         to: [RECIPIENT],
-        subject: `BeyondIQ Alert: ${title}`,
+        subject: `FluxorX Alert: ${title}`,
         html,
       }),
     })

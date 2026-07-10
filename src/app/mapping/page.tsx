@@ -110,7 +110,7 @@ export default function MappingPage() {
             Column mapping
           </h2>
           <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-[#9AA4B4]">
-            BeyondIQ has analyzed your file and detected how each column maps to the internal schema. Review and confirm before proceeding to validation.
+            FluxorX has analyzed your file and detected how each column maps to the internal schema. Review and confirm before proceeding to validation.
           </p>
         </div>
 

@@ -32,7 +32,7 @@ function ChartSkeleton() {
 
 type RawRow = Record<string, unknown>
 
-export default function SolarDashboard() {
+export default function OperationsDashboard() {
   const [rows, setRows] = useState<RawRow[]>([])
   const [healthScore, setHealthScore] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)

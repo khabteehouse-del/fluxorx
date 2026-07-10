@@ -29,10 +29,10 @@ export default function OverviewPage() {
               <span className="text-[#3FB984]">●</span> SYSTEM ONLINE
             </div>
             <h2 className="max-w-2xl font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-              Your solar operations, read and understood in one place.
+              Your operations, read and understood in one place.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#8A93A4]">
-              Bring in your data, let BeyondIQ validate and organize it, then ask
+              Bring in your data, let FluxorX validate and organize it, then ask
               plain-language questions and set up automatic alerts.
             </p>
             <div className="mt-7">

@@ -77,7 +77,7 @@ export default function LoginPage() {
             className="max-w-md"
           >
             <h1 className="font-display text-4xl font-semibold leading-[1.12] tracking-tight">
-              Solar operations,
+              Operations,
               <br />
               in one command center.
             </h1>
@@ -115,7 +115,7 @@ export default function LoginPage() {
                 Beyond<span className="text-[#FFB347]">IQ</span>
               </div>
               <h1 className="mt-6 font-display text-[1.7rem] font-semibold leading-[1.18] tracking-tight">
-                Solar operations, in one command center.
+                Operations, in one command center.
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-[#9AA4B4]">
                 Every project, invoice, and alert. Read, validated, and explained

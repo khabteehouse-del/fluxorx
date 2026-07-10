@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BeyondIQ",
-  description: "AI command center for solar operations.",
+  title: "FluxorX",
+  description: "AI command center for enterprise operations.",
 };
 
 export default function RootLayout({

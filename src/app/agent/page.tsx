@@ -177,7 +177,7 @@ export default function AgentPage() {
 
       // Persist to localStorage so Automations page picks it up
       try {
-        const existing = JSON.parse(localStorage.getItem('beyondiq_schedule_drafts') || '[]')
+        const existing = JSON.parse(localStorage.getItem('fluxorx_schedule_drafts') || '[]')
         existing.push({
           id: crypto.randomUUID(),
           title,
@@ -186,7 +186,7 @@ export default function AgentPage() {
           time: timeStr,
           createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         })
-        localStorage.setItem('beyondiq_schedule_drafts', JSON.stringify(existing))
+        localStorage.setItem('fluxorx_schedule_drafts', JSON.stringify(existing))
       } catch {}
 
       setMode('answer')
@@ -298,7 +298,7 @@ export default function AgentPage() {
           {messages.length === 0 && (
             <div className="flex h-full flex-col items-center justify-center text-center">
               <div className="font-display text-lg font-semibold text-[#EDF1F6]">
-                Ask BeyondIQ anything about your data
+                Ask FluxorX anything about your data
               </div>
               <p className="mt-2 max-w-sm text-sm text-[#566174]">
                 Real answers from your actual database. No guessing.
@@ -453,7 +453,7 @@ export default function AgentPage() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); ask(input) } }}
-              placeholder="Ask about your solar data..."
+              placeholder="Ask about your data..."
               disabled={busy}
               suppressHydrationWarning
               className="flex-1 bg-transparent text-sm text-[#EDF1F6] placeholder-[#3A4555] outline-none disabled:opacity-50"
@@ -471,7 +471,7 @@ export default function AgentPage() {
             </button>
           </div>
           <div className="mt-2 text-center font-mono text-[9px] tracking-widest text-[#1E2A38]">
-            BEYONDIQ DETERMINISTIC AI · ZERO HALLUCINATION · REAL DATABASE QUERIES
+            FLUXORX DETERMINISTIC AI · ZERO HALLUCINATION · REAL DATABASE QUERIES
           </div>
         </div>
 

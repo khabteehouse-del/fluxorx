@@ -10,17 +10,17 @@ const TEMPLATES = [
   {
     id: 'overdue',
     label: 'Overdue Invoice Alert',
-    body: `*BeyondIQ Alert* 🔴\n\nOverdue Invoices Detected\n\n12 invoices are overdue with a total outstanding balance of ₨13.2M.\n\nTop accounts:\n• Hubco Energy — ₨4.2M\n• Pak Suzuki Motors — ₨4.1M\n• PSO Islamabad — ₨4.9M\n\nReview and take action in BeyondIQ.\n\n_Sent by BeyondIQ Automated Alerts_`,
+    body: `*FluxorX Alert* 🔴\n\nOverdue Invoices Detected\n\n12 invoices are overdue with a total outstanding balance of ₨13.2M.\n\nTop accounts:\n• Hubco Energy — ₨4.2M\n• Pak Suzuki Motors — ₨4.1M\n• PSO Islamabad — ₨4.9M\n\nReview and take action in FluxorX.\n\n_Sent by FluxorX Automated Alerts_`,
   },
   {
     id: 'summary',
     label: 'Daily CEO Summary',
-    body: `*BeyondIQ — Daily Executive Summary* 📊\n\nGood morning.\n\n*Pipeline Overview*\nTotal Contract Value: ₨2.3B\nCollected: ₨1.1B (48%)\nActive Projects: 8\n\n*Alerts*\n🔴 3 projects delayed\n🟡 12 overdue invoices\n\n*Top Salesperson*\nSana Khan — ₨412M\n\nFull dashboard: beyondiq.app\n\n_BeyondIQ · 09:00 PKT_`,
+    body: `*FluxorX — Daily Executive Summary* 📊\n\nGood morning.\n\n*Pipeline Overview*\nTotal Contract Value: ₨2.3B\nCollected: ₨1.1B (48%)\nActive Projects: 8\n\n*Alerts*\n🔴 3 projects delayed\n🟡 12 overdue invoices\n\n*Top Salesperson*\nSana Khan — ₨412M\n\nFull dashboard: fluxorx.app\n\n_FluxorX · 09:00 PKT_`,
   },
   {
     id: 'delayed',
     label: 'Delayed Projects Alert',
-    body: `*BeyondIQ Alert* 🟡\n\nDelayed Projects Update\n\n3 projects require attention:\n\n1. Hubco Energy (Karachi) — 45 days delayed\n2. Pak Suzuki Motors (Karachi) — 32 days delayed\n3. PSO Islamabad — 18 days delayed\n\nCombined value at risk: ₨52.2M\n\n_Sent by BeyondIQ Automated Alerts_`,
+    body: `*FluxorX Alert* 🟡\n\nDelayed Projects Update\n\n3 projects require attention:\n\n1. Hubco Energy (Karachi) — 45 days delayed\n2. Pak Suzuki Motors (Karachi) — 32 days delayed\n3. PSO Islamabad — 18 days delayed\n\nCombined value at risk: ₨52.2M\n\n_Sent by FluxorX Automated Alerts_`,
   },
 ]
 
@@ -179,7 +179,7 @@ export default function WhatsAppPage() {
                     <span className="text-[10px] font-bold text-white">B</span>
                   </div>
                   <div>
-                    <div className="text-[11px] font-semibold text-white">BeyondIQ Alerts</div>
+                    <div className="text-[11px] font-semibold text-white">FluxorX Alerts</div>
                     <div className="text-[9px] text-[#6B7280]">Business Account</div>
                   </div>
                 </div>

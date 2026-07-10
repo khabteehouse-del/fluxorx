@@ -52,7 +52,7 @@ export default function UploadPage() {
   function loadDemoData() {
     const headers = ['Project ID','Customer Name','City','System Size (kW)','Contract Value (PKR)','Amount Paid (PKR)','Stage','Install Date','Invoice Status','Salesperson']
     const demoRows: Record<string, string>[] = [
-      {'Project ID':'SOL-2001','Customer Name':'Greaves Solar Ltd','City':'Karachi','System Size (kW)':'100','Contract Value (PKR)':'18500000','Amount Paid (PKR)':'18500000','Stage':'Completed','Install Date':'2026-01-15','Invoice Status':'Paid','Salesperson':'Bilal Ahmed'},
+      {'Project ID':'SOL-2001','Customer Name':'Meridian Contracting Co','City':'Karachi','System Size (kW)':'100','Contract Value (PKR)':'18500000','Amount Paid (PKR)':'18500000','Stage':'Completed','Install Date':'2026-01-15','Invoice Status':'Paid','Salesperson':'Bilal Ahmed'},
       {'Project ID':'SOL-2002','Customer Name':'Atlas Power Co','City':'Lahore','System Size (kW)':'50','Contract Value (PKR)':'9250000','Amount Paid (PKR)':'4625000','Stage':'In Progress','Install Date':'2026-03-10','Invoice Status':'Partial','Salesperson':'Sana Khan'},
       {'Project ID':'SOL-2003','Customer Name':'Engro Industries','City':'Karachi','System Size (kW)':'200','Contract Value (PKR)':'37000000','Amount Paid (PKR)':'0','Stage':'Quoted','Install Date':'','Invoice Status':'Unpaid','Salesperson':'Faisal Iqbal'},
       {'Project ID':'SOL-2004','Customer Name':'Lucky Cement','City':'Islamabad','System Size (kW)':'150','Contract Value (PKR)':'27750000','Amount Paid (PKR)':'27750000','Stage':'Completed','Install Date':'2026-02-20','Invoice Status':'Paid','Salesperson':'Ayesha Malik'},
@@ -69,7 +69,7 @@ export default function UploadPage() {
       {'Project ID':'SOL-2015','Customer Name':'Millat Tractors','City':'Lahore','System Size (kW)':'70','Contract Value (PKR)':'12950000','Amount Paid (PKR)':'6475000','Stage':'In Progress','Install Date':'2026-04-15','Invoice Status':'Partial','Salesperson':'Faisal Iqbal'},
     ]
     setParsed({
-      fileName: 'SAP_B1_Greaves_Solar_Demo.xlsx',
+      fileName: 'SAP_B1_Demo_Data.xlsx',
       fileSize: 0,
       sheetName: 'Projects',
       headers,
@@ -212,7 +212,7 @@ export default function UploadPage() {
             Bring in your data
           </h2>
           <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-[#9AA4B4]">
-            Upload a spreadsheet. BeyondIQ reads it exactly as received and lands it
+            Upload a spreadsheet. FluxorX reads it exactly as received and lands it
             into raw storage, ready for validation.
           </p>
         </div>
@@ -278,7 +278,7 @@ export default function UploadPage() {
               className="mt-4 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-[#9AA4B4] transition hover:border-[#FFB347]/30 hover:bg-[#FFB347]/[0.04] hover:text-[#FFD9A8] disabled:opacity-40"
             >
               <span className="mr-2 font-mono text-[10px] tracking-widest text-[#566174]">DEMO</span>
-              Load sample SAP B1-style solar data
+              Load sample SAP B1-style demo data
             </button>
 
             {phase === 'error' && error && (
@@ -350,7 +350,7 @@ export default function UploadPage() {
                 style={{ backgroundImage: 'linear-gradient(to right, #FFB347, #FF7A3D)' }}
                 className="rounded-xl px-5 py-2.5 text-sm font-semibold text-[#1A0E03] shadow-[0_8px_30px_rgba(255,130,60,0.35)] transition hover:brightness-105 disabled:opacity-50"
               >
-                Land into BeyondIQ
+                Land into FluxorX
               </button>
               <button
                 onClick={reset}

@@ -75,7 +75,7 @@ export default function LiveEmailPage() {
       emailJobs.push({
         id: 'overdue',
         title: 'Overdue Invoice Reminder',
-        summary: `BeyondIQ has identified ${overdue.length} projects with overdue invoices in your solar pipeline. The total outstanding balance across these accounts is ${pkr(overdueValue)}. Immediate follow-up is recommended to maintain cash flow targets. The affected customers and their outstanding amounts are listed below for your reference.`,
+        summary: `FluxorX has identified ${overdue.length} projects with overdue invoices in your pipeline. The total outstanding balance across these accounts is ${pkr(overdueValue)}. Immediate follow-up is recommended to maintain cash flow targets. The affected customers and their outstanding amounts are listed below for your reference.`,
         meta: `${overdue.length} invoices · ${pkr(overdueValue)} outstanding`,
         priority: 'critical',
         rows: overdue,
@@ -163,7 +163,7 @@ export default function LiveEmailPage() {
           <div>
             <h2 className="font-display text-2xl font-semibold tracking-tight">Live email</h2>
             <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-[#9AA4B4]">
-              Review each alert before it goes out. BeyondIQ composes a branded executive email with your real data. One tap sends it.
+              Review each alert before it goes out. FluxorX composes a branded executive email with your real data. One tap sends it.
             </p>
           </div>
           {sentCount > 0 && (
@@ -326,7 +326,7 @@ export default function LiveEmailPage() {
         {/* Footer note */}
         {jobs.length > 0 && (
           <div className="mt-6 text-center font-mono text-[10px] tracking-widest text-[#1E2A38]">
-            EMAILS SENT VIA RESEND · BEYONDIQ AUTOMATED ALERTS · KARACHI NODE
+            EMAILS SENT VIA RESEND · FLUXORX AUTOMATED ALERTS · KARACHI NODE
           </div>
         )}
       </div>

@@ -55,7 +55,7 @@ export default function AutomationsPage() {
   type ScheduleDraft = { id: string; title: string; channel: string; freq: string; time: string; createdAt: string }
   const [scheduleDrafts, setScheduleDrafts] = useState<ScheduleDraft[]>(() => {
     try {
-      const raw = typeof window !== 'undefined' ? localStorage.getItem('beyondiq_schedule_drafts') : null
+      const raw = typeof window !== 'undefined' ? localStorage.getItem('fluxorx_schedule_drafts') : null
       return raw ? JSON.parse(raw) : []
     } catch { return [] }
   })
@@ -63,7 +63,7 @@ export default function AutomationsPage() {
   function deleteSchedule(id: string) {
     setScheduleDrafts(prev => {
       const updated = prev.filter(s => s.id !== id)
-      try { localStorage.setItem('beyondiq_schedule_drafts', JSON.stringify(updated)) } catch {}
+      try { localStorage.setItem('fluxorx_schedule_drafts', JSON.stringify(updated)) } catch {}
       return updated
     })
   }
@@ -234,7 +234,7 @@ export default function AutomationsPage() {
             </span>
           </div>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#9AA4B4]">
-            BeyondIQ has scanned your data and flagged actions that need your sign-off before anything is sent.
+            FluxorX has scanned your data and flagged actions that need your sign-off before anything is sent.
           </p>
         </div>
 

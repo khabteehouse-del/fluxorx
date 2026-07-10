@@ -342,7 +342,7 @@ export default function ValidationPage() {
               Data validation
             </h2>
             <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-[#9AA4B4]">
-              BeyondIQ scans every row and reports what needs attention, in plain
+              FluxorX scans every row and reports what needs attention, in plain
               language.
             </p>
           </div>

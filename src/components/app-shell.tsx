@@ -17,7 +17,7 @@ const NAV = [
       { label: 'Raw data', href: '/raw', ready: true },
       { label: 'Column mapping', href: '/mapping', ready: true },
       { label: 'Validation', href: '/validation', ready: true },
-      { label: 'Dashboard', href: '/solar', ready: true },
+      { label: 'Dashboard', href: '/operations', ready: true },
     ],
   },
   {

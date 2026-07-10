@@ -245,8 +245,8 @@ export default function AgentPage() {
 
         {/* Reactor */}
         <div className="relative flex flex-col items-center py-2" style={{ zIndex: 1, overflow: 'hidden' }}>
-          <div style={{ width: messages.length > 0 ? 120 : 220, height: messages.length > 0 ? 120 : 220, position: 'relative', zIndex: 1, overflow: 'visible', transition: 'width 0.3s, height 0.3s' }}>
-            <div style={{ position: 'absolute', top: '50%', left: '50%', width: messages.length > 0 ? 160 : 300, height: messages.length > 0 ? 160 : 300, transform: 'translate(-50%, -50%)', overflow: 'visible' }}>
+          <div style={{ width: 220, height: 220, position: 'relative', zIndex: 1, overflow: 'visible' }}>
+            <div style={{ position: 'absolute', top: '50%', left: '50%', width: 300, height: 300, transform: 'translate(-50%, -50%)', overflow: 'visible' }}>
               <AIReactor mode={mode} />
             </div>
           </div>
@@ -274,7 +274,7 @@ export default function AgentPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mx-2 mb-3 overflow-hidden rounded-xl border border-white/10 bg-[#080C12] px-4 py-3"
+              className="mx-2 mb-3 max-h-32 overflow-y-auto overflow-x-hidden rounded-xl border border-white/10 bg-[#080C12] px-4 py-3"
             >
               <div className="mb-1.5 font-mono text-[9px] tracking-widest text-[#2A3444]">SYSTEM LOG</div>
               {logs.map((line, i) => (

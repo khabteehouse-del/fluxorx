@@ -432,7 +432,7 @@ export default function AgentPage() {
         </div>
 
         {/* Input */}
-        <div className="border-t border-white/[0.08] px-2 pb-3 pt-3">
+        <div className="sticky bottom-0 z-10 border-t border-white/[0.08] bg-[#06080D] px-2 pb-3 pt-3">
           {messages.length > 0 && (
             <div className="mb-2 flex flex-wrap gap-1.5 px-1">
               {SUGGESTIONS.slice(0, 3).map(s => (

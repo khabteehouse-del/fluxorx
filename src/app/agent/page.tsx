@@ -245,8 +245,8 @@ export default function AgentPage() {
 
         {/* Reactor */}
         <div className="relative flex flex-col items-center py-2" style={{ zIndex: 1, overflow: 'hidden' }}>
-          <div style={{ width: 220, height: 220, position: 'relative', zIndex: 1, overflow: 'visible' }}>
-            <div style={{ position: 'absolute', top: '50%', left: '50%', width: 300, height: 300, transform: 'translate(-50%, -50%)', overflow: 'visible' }}>
+          <div style={{ width: messages.length > 0 ? 120 : 220, height: messages.length > 0 ? 120 : 220, position: 'relative', zIndex: 1, overflow: 'visible', transition: 'width 0.3s, height 0.3s' }}>
+            <div style={{ position: 'absolute', top: '50%', left: '50%', width: messages.length > 0 ? 160 : 300, height: messages.length > 0 ? 160 : 300, transform: 'translate(-50%, -50%)', overflow: 'visible' }}>
               <AIReactor mode={mode} />
             </div>
           </div>

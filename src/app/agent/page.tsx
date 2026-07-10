@@ -111,7 +111,7 @@ export default function AgentPage() {
   const inputRef  = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [messages, logs])
 
   async function ask(question: string) {

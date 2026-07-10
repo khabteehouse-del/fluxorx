@@ -447,7 +447,7 @@ export default function AgentPage() {
               ))}
             </div>
           )}
-          <div className="flex items-center gap-2 rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-2.5 focus-within:border-[#FFB347]/40">
+          <div className="flex items-center gap-2 rounded-2xl border border-white/12 bg-white/[0.04] px-5 py-4 focus-within:border-[#FFB347]/40">
             <input
               ref={inputRef}
               value={input}
@@ -456,13 +456,13 @@ export default function AgentPage() {
               placeholder="Ask about your data..."
               disabled={busy}
               suppressHydrationWarning
-              className="flex-1 bg-transparent text-sm text-[#EDF1F6] placeholder-[#3A4555] outline-none disabled:opacity-50"
+              className="flex-1 bg-transparent text-base text-[#EDF1F6] placeholder-[#3A4555] outline-none disabled:opacity-50"
             />
             <button
               onClick={() => ask(input)}
               disabled={busy || !input.trim()}
               style={!busy && input.trim() ? { backgroundImage: 'linear-gradient(to right, #FFB347, #FF7A3D)' } : {}}
-              className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-white/[0.06] transition disabled:opacity-40"
+              className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/[0.06] transition disabled:opacity-40"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                 stroke={!busy && input.trim() ? '#1A0E03' : '#566174'} strokeWidth="2.2">

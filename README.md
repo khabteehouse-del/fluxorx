@@ -4,7 +4,7 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-fluxorx.vercel.app-orange?style=for-the-badge)](https://fluxorx.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-khabteehouse--del-black?style=for-the-badge&logo=github)](https://github.com/khabteehouse-del)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Faraz%20Akhtar-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/beyondtahir/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Faraz%20Akhtar-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/farazakhtar1980/)
 [![Status](https://img.shields.io/badge/Status-Live%20in%20Production-green?style=for-the-badge)]()
 
 ---
@@ -304,7 +304,7 @@ Add the three environment variables in Vercel under Project Settings, Environmen
 
 22 years of enterprise experience spanning DBA, project management, international stakeholders, and media. Transitioned into AI engineering with a focus on building production-grade business intelligence systems for enterprise clients.
 
-- LinkedIn: [linkedin.com/in/beyondtahir](https://www.linkedin.com/in/beyondtahir/)
+- LinkedIn: [linkedin.com/in/farazakhtar1980](https://www.linkedin.com/in/farazakhtar1980/)
 - GitHub: [github.com/khabteehouse-del](https://github.com/khabteehouse-del)
 - Live: [fluxorx.vercel.app](https://fluxorx.vercel.app)
 

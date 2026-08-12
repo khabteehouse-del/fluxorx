@@ -17,6 +17,7 @@ type Message = {
   role: 'user' | 'agent'
   text: string
   logs?: LogLine[]
+  tier?: 'deterministic' | 'claude'
   scheduleDraft?: { title: string; channel: string; freq: string; time: string }
 }
 
@@ -213,15 +214,18 @@ export default function AgentPage() {
       return
     }
 
-    const answer = await runAgent(question, supabase, (line) => {
+    const result = await runAgent(question, supabase, (line) => {
       collectedLogs.push(line)
       setLogs([...collectedLogs])
     })
 
+    const answer = result.answer
+    const tier = result.tier
+
     setMode('answer')
     await auditLog(supabase, 'ai_question', {
       entity: 'agent_chat',
-      metadata: { question, answerLength: answer.length },
+      metadata: { question, answerLength: answer.length, tier },
     })
     await new Promise(r => setTimeout(r, 600))
 
@@ -229,6 +233,7 @@ export default function AgentPage() {
       id: crypto.randomUUID(),
       role: 'agent',
       text: answer,
+      tier,
       logs: [...collectedLogs],
     }])
     setLogs([])

@@ -476,7 +476,7 @@ export default function AgentPage() {
             </button>
           </div>
           <div className="mt-2 text-center font-mono text-[9px] tracking-widest text-[#FFB347]">
-            FLUXORX DETERMINISTIC AI · ZERO HALLUCINATION · REAL DATABASE QUERIES · OBSERVED BY LANGFUSE · PHASE 2 IN PROGRESS
+            FLUXORX DETERMINISTIC AI · ZERO HALLUCINATION · REAL DATABASE QUERIES · OBSERVED BY LANGFUSE · MCP SERVER LIVE · PHASE 2 IN PROGRESS
           </div>
         </div>
 

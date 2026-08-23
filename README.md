@@ -110,6 +110,9 @@ Audit Logging
 | Charts | Recharts with custom SVG glow effects |
 | Email | Resend |
 | Hosting | Vercel |
+| Containerization | Docker, multi-stage build, standalone Next.js output |
+| Container Orchestration | Kubernetes (local cluster via Minikube), Deployment/Service/Ingress/HPA |
+| Cloud Deployment | Azure Container Apps, private registry, auto-scaling |
 | Source Control | GitHub with automatic Vercel deploy on push |
 | AI Engine | Custom deterministic engine, zero LLM dependency |
 
@@ -118,32 +121,32 @@ Audit Logging
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                   USER BROWSER                       │
-│              fluxorx.vercel.app                      │
-└───────────────────────┬─────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────┐
-│                    VERCEL                            │
-│         Next.js 16 App Router + Turbopack            │
-│    Client Components + Server Components + API Routes│
-└──────────┬──────────────────────────┬───────────────┘
-           │                          │
-           ▼                          ▼
+┌───────────────────────────────────────────────────┐
+│                   USER BROWSER                     │
+│              fluxorx.vercel.app                    │
+└───────────────────────┬───────────────────────────┘
+                         │
+                         ▼
+┌───────────────────────────────────────────────────┐
+│                    VERCEL                          │
+│         Next.js 16 App Router + Turbopack          │
+│    Client Components + Server Components + API     │
+└───────────┬─────────────────────────┬─────────────┘
+            │                         │
+            ▼                         ▼
 ┌──────────────────┐      ┌──────────────────────────┐
-│    SUPABASE      │      │         RESEND           │
-│ Postgres (Mumbai)│      │   Email Delivery API     │
-│ 38 Tables + RLS  │      │   Server-side only       │
-│ Auth + Realtime  │      └──────────────────────────┘
-└──────────────────┘
-           │
-           ▼
-┌─────────────────────────────────────────────────────┐
-│              AI ENGINE (src/lib/agent.ts)            │
-│   Intent Classification → Supabase Query → Response │
+│    SUPABASE       │      │         RESEND           │
+│ Postgres (Mumbai) │      │   Email Delivery API     │
+│ 38 Tables + RLS    │      │   Server-side only       │
+│ Auth + Realtime    │      └──────────────────────────┘
+└────────┬───────────┘
+         │
+         ▼
+┌───────────────────────────────────────────────────┐
+│              AI ENGINE (src/lib/agent.ts)          │
+│   Intent Classification → Supabase Query → Response│
 │   Deterministic by default. Claude API upgrade-ready│
-└─────────────────────────────────────────────────────┘
+└───────────────────────────────────────────────────┘
 ```
 
 ---
@@ -173,14 +176,14 @@ src/
 │   ├── login/          # Three.js particle burst hero, Supabase Auth
 │   ├── connectors/     # 8 enterprise connector cards
 │   ├── upload/         # File upload + demo data loader
-│   ├── raw/            # Paginated raw records view
+│   ├── raw/             # Paginated raw records view
 │   ├── mapping/        # Column mapping confirmation
 │   ├── validation/     # Health score + 8-rule engine
-│   ├── solar/          # Executive dashboard + charts.tsx (code split)
-│   ├── agent/          # AI chat + constellation reactor
+│   ├── solar/           # Executive dashboard + charts.tsx (code split)
+│   ├── agent/           # AI chat + constellation reactor
 │   ├── automations/    # RBAC approval + schedule drafts
-│   ├── email/          # Live email with Resend
-│   ├── whatsapp/       # Settings + phone preview
+│   ├── email/           # Live email with Resend
+│   ├── whatsapp/        # Settings + phone preview
 │   └── api/
 │       └── send-email/ # Server-side Resend API route
 ├── components/
@@ -252,6 +255,80 @@ git push origin main
 ```
 
 Add the three environment variables in Vercel under Project Settings, Environment Variables before the first deploy.
+
+---
+
+## Infrastructure
+
+FluxorX runs on three deployment targets from the same codebase and container image, proving portability across environments.
+
+### Docker
+
+Multi-stage Dockerfile with standalone Next.js output and a non-root user. Resolved a real build-time dependency issue where `next/font/google` required live internet access during the Docker build, switched to runtime `<link>` tag font loading so the image now builds with zero external network dependency.
+
+```bash
+docker-compose up --build
+```
+
+### Azure Container Apps
+
+Live cloud deployment with a private Azure Container Registry, environment-based secrets management, and auto-scaling (scale-to-zero when idle, up to 3 replicas under load).
+
+**Live URL:** https://fluxorx-app.redsky-65d53030.eastus.azurecontainerapps.io/
+
+### Kubernetes (Local Cluster)
+
+Production-grade manifests, Deployment, Service, Ingress, and Horizontal Pod Autoscaler, running on a local Minikube cluster. Same Docker image as the Azure deployment, demonstrating the same container running correctly across Docker Compose, managed cloud, and Kubernetes orchestration.
+
+**Architecture:**
+```
+Browser → Ingress (nginx) → Service (ClusterIP) → Pods (2-5, autoscaled) → FluxorX container
+```
+
+**Setup:**
+
+```bash
+# Start the cluster
+minikube start --driver=docker --memory=2200 --cpus=2
+
+# Load the existing Docker image (no registry needed locally)
+minikube image load beyondiq-fluxorx:latest
+
+# Create the runtime secret
+kubectl create secret generic fluxorx-secrets --from-literal=resend-api-key=YOUR_RESEND_KEY
+
+# Apply all manifests
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl apply -f k8s/ingress.yaml
+kubectl apply -f k8s/hpa.yaml
+
+# Enable required addons (one-time per cluster)
+minikube addons enable ingress
+minikube addons enable metrics-server
+```
+
+**Access the app:**
+
+```bash
+# Quickest, direct to the Service
+kubectl port-forward service/fluxorx-service 3000:80
+# then open http://localhost:3000
+
+# Full Ingress routing
+kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 8080:80
+# add "127.0.0.1 fluxorx.local" to your hosts file, then open http://fluxorx.local:8080
+```
+
+**Verify autoscaling:**
+
+```bash
+kubectl get hpa
+```
+
+Shows live CPU usage against a 70% target, with replica count floating between 2 (idle) and 5 (under load).
+
+**Manifests:** [`k8s/deployment.yaml`](./k8s/deployment.yaml) · [`k8s/service.yaml`](./k8s/service.yaml) · [`k8s/ingress.yaml`](./k8s/ingress.yaml) · [`k8s/hpa.yaml`](./k8s/hpa.yaml)
 
 ---
 

@@ -21,10 +21,7 @@ Built and deployed in **48 hours**. Passed **19 of 19 client acceptance criteria
 
 **URL:** https://fluxorx.vercel.app
 
-```
-Email:    fluxorx@gmail.com
-Password: Admin@fluxorx
-```
+Demo access is available on request. Contact [Faraz Akhtar on LinkedIn](https://www.linkedin.com/in/farazakhtar1980/) for a login.
 
 ---
 

@@ -348,7 +348,8 @@ Shows live CPU usage against a 70% target, with replica count floating between 2
 
 ## Project History
 
-- **First build:** FluxorX was built in 48 hours to a client-style brief for a solar business, using the acceptance criteria listed below. The sample data (Greaves Solar records) is demo data.
+- **Origin:** the project started from a brief for a solar company, given to me by my mentor, who was building alongside me. I built it in 48 hours against the acceptance criteria listed below and showed him the result. The sample data (Greaves Solar records) is demo data.
+- **Made my own:** I later renamed it and kept developing it independently as a project to build and practise on, so it is now my own work.
 - **Two-tier AI:** the first version answered only through the deterministic engine. A Claude tier was added later for open-ended questions, with Langfuse tracing and an MCP server.
 - **Containers:** Docker, Kubernetes manifests (tested on a local Minikube cluster) and an Azure Container Apps deployment were added to show the same image running in different environments.
 - **Azure retired:** the Azure free credit ended in October 2026, so that deployment was removed. Vercel remains the live demo.

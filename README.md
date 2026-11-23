@@ -11,7 +11,7 @@
 
 ## What is FluxorX
 
-FluxorX is a production-grade enterprise AI platform built for organizations that run on data but struggle to make it actionable. It ingests business data from spreadsheets and enterprise connectors, validates every record automatically, and delivers live executive dashboards, a two-tier AI agent (fixed database queries for core business numbers, Claude for open-ended questions), and automated alert workflows — all in a single, secure command center.
+FluxorX is a production-grade enterprise AI platform built for organizations that run on data but struggle to make it actionable. It ingests business data from spreadsheets and enterprise connectors, validates every record automatically, and delivers live executive dashboards, a two-tier AI agent (fixed database queries for core business numbers, Claude for open-ended questions), and automated alert workflows, all in a single, secure command center.
 
 Built and deployed in **48 hours**. Passed **19 of 19 client acceptance criteria**.
 

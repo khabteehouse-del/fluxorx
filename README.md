@@ -157,6 +157,23 @@ Audit Logging
 
 ---
 
+## How the AI Agent Answers a Question
+
+```mermaid
+flowchart TD
+    Q["User asks a question"] --> M{"Matches one of the 8 intents?"}
+    M -- "Yes" --> T1["Tier 1: fixed Supabase query"]
+    M -- "No" --> T2["Tier 2: Claude Haiku 4.5 via /api/agent-claude, with a dataset summary"]
+    T1 --> A["Answer shown in the agent chat"]
+    T2 --> A
+    T1 -.-> L["Langfuse trace, optional"]
+    T2 -.-> L
+    MCP["MCP server, 8 read-only tools"] --> DB[("Supabase Postgres")]
+    T1 --> DB
+```
+
+---
+
 ## Database Schema (38 Tables)
 
 | Group | Tables |

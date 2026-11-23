@@ -11,7 +11,7 @@
 
 ## What is FluxorX
 
-FluxorX is a production-grade enterprise AI platform built for organizations that run on data but struggle to make it actionable. It ingests business data from spreadsheets and enterprise connectors, validates every record automatically, and delivers live executive dashboards, a deterministic AI agent, and automated alert workflows — all in a single, secure command center.
+FluxorX is a production-grade enterprise AI platform built for organizations that run on data but struggle to make it actionable. It ingests business data from spreadsheets and enterprise connectors, validates every record automatically, and delivers live executive dashboards, a two-tier AI agent (fixed database queries for core business numbers, Claude for open-ended questions), and automated alert workflows — all in a single, secure command center.
 
 Built and deployed in **48 hours**. Passed **19 of 19 client acceptance criteria**.
 
@@ -67,13 +67,18 @@ Audit Logging
 - Salesperson leaderboard with animated gradient progress bars
 - Every metric pulled from the production database in real time, zero hardcoded values
 
-### Deterministic AI Agent
+### Two-Tier AI Agent
 - Plain-language question interface with a Three.js constellation reactor
 - 28-node data graph that expands on query and contracts on answer
-- 8 intent categories: overdue invoices, top salesperson, city breakdown, delayed projects, collection rate, completed installations, system capacity, and general summary
-- Zero LLM API cost at runtime, zero hallucination risk, every answer traceable to a live database query
+- **Tier 1, deterministic:** 8 intent categories (overdue invoices, top salesperson, city breakdown, delayed projects, collection rate, completed installations, system capacity, and general summary) are answered by fixed database queries. No LLM is involved, so business-critical numbers cannot be made up, and every answer traces to a live database query.
+- **Tier 2, Claude:** questions that match none of the 8 intents fall through to Claude (Haiku 4.5) through a server-side API route (`/api/agent-claude`). Claude receives a summary of the loaded dataset as context. The Anthropic API key stays on the server and requires `ANTHROPIC_API_KEY`.
+- **Observability:** each question is traced in Langfuse, including tier, latency and token counts. Tracing is optional and switches on only when the Langfuse keys are set.
+- Design principle: the LLM is used only where fixed queries cannot answer, never for the core numbers.
 - Schedule creation from chat: type `Create schedule:` and the agent generates an automation draft
-- Clean upgrade path to Claude API via a single file change in `src/lib/agent.ts`
+
+### MCP Server
+- A standalone MCP server (`mcp-server-build/`) exposes 8 read-only query tools over stdio: overdue invoices, top salesperson, city breakdown, delayed projects, collection rate, completed installations, system capacity, and pipeline summary
+- It reads Supabase using the `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` environment variables. Keep that key private.
 
 ### Automation and Notifications
 - Auto-generated automation suggestions from business events and validation results
@@ -109,9 +114,12 @@ Audit Logging
 | Hosting | Vercel |
 | Containerization | Docker, multi-stage build, standalone Next.js output |
 | Container Orchestration | Kubernetes (local cluster via Minikube), Deployment/Service/Ingress/HPA |
-| Cloud Deployment | Azure Container Apps, private registry, auto-scaling |
+| Cloud Deployment | Azure Container Apps with a private registry and auto-scaling (retired in October 2026, see Infrastructure) |
 | Source Control | GitHub with automatic Vercel deploy on push |
-| AI Engine | Custom deterministic engine, zero LLM dependency |
+| AI Engine, Tier 1 | Custom deterministic intent engine, no LLM |
+| AI Engine, Tier 2 | Anthropic Claude (Haiku 4.5) through a server-side API route |
+| LLM Observability | Langfuse (optional) |
+| Agent Tooling | MCP server, 8 read-only tools |
 
 ---
 
@@ -141,8 +149,9 @@ Audit Logging
          ▼
 ┌───────────────────────────────────────────────────┐
 │              AI ENGINE (src/lib/agent.ts)          │
-│   Intent Classification → Supabase Query → Response│
-│   Deterministic by default. Claude API upgrade-ready│
+│  Tier 1: Intent match → Supabase query → Response  │
+│  Tier 2: No match → Claude (Haiku 4.5) → Response  │
+│  Langfuse traces both tiers (optional)             │
 └───────────────────────────────────────────────────┘
 ```
 
@@ -176,13 +185,14 @@ src/
 │   ├── raw/             # Paginated raw records view
 │   ├── mapping/        # Column mapping confirmation
 │   ├── validation/     # Health score + 8-rule engine
-│   ├── solar/           # Executive dashboard + charts.tsx (code split)
+│   ├── dashboard/       # Executive dashboard
 │   ├── agent/           # AI chat + constellation reactor
 │   ├── automations/    # RBAC approval + schedule drafts
 │   ├── email/           # Live email with Resend
 │   ├── whatsapp/        # Settings + phone preview
 │   └── api/
-│       └── send-email/ # Server-side Resend API route
+│       ├── send-email/   # Server-side Resend API route
+│       └── agent-claude/ # Tier 2 Claude route and Langfuse tracing
 ├── components/
 │   ├── app-shell.tsx          # Navigation sidebar
 │   ├── ambient-background.tsx # Canvas constellation animation
@@ -192,8 +202,10 @@ src/
     ├── supabase/
     │   ├── client.ts   # Browser-side Supabase client
     │   └── server.ts   # Server-side Supabase client
-    ├── agent.ts        # Deterministic AI engine
+    ├── agent.ts        # Two-tier AI engine (deterministic intents, Claude fallback)
     └── audit.ts        # Audit logging utility
+mcp-server-build/       # Standalone MCP server (8 read-only tools)
+k8s/                    # Kubernetes manifests
 ```
 
 ---
@@ -221,6 +233,9 @@ npm install
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 RESEND_API_KEY=your_resend_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key   # only needed for Tier 2 (Claude) answers
+LANGFUSE_PUBLIC_KEY=your_langfuse_public_key   # optional
+LANGFUSE_SECRET_KEY=your_langfuse_secret_key   # optional
 
 # Start the development server
 npm run dev
@@ -237,6 +252,8 @@ Open [http://localhost:3000](http://localhost:3000)
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase Dashboard, Project Settings, API, Project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase Dashboard, Project Settings, API, anon public key |
 | `RESEND_API_KEY` | Resend Dashboard, API Keys |
+| `ANTHROPIC_API_KEY` | Anthropic Console, API Keys (Tier 2 only) |
+| `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY` | Langfuse project settings (optional) |
 
 ---
 
@@ -257,7 +274,7 @@ Add the three environment variables in Vercel under Project Settings, Environmen
 
 ## Infrastructure
 
-FluxorX runs on three deployment targets from the same codebase and container image, proving portability across environments.
+FluxorX was deployed to three targets from the same codebase and container image, to prove portability across environments. Vercel is the live demo today. The Azure deployment has been retired (see below), and Docker and Kubernetes are available to run from this repo.
 
 ### Docker
 
@@ -267,11 +284,11 @@ Multi-stage Dockerfile with standalone Next.js output and a non-root user. Resol
 docker-compose up --build
 ```
 
-### Azure Container Apps
+### Azure Container Apps (retired)
 
-Live cloud deployment with a private Azure Container Registry, environment-based secrets management, and auto-scaling (scale-to-zero when idle, up to 3 replicas under load).
+This was deployed to Azure Container Apps with a private Azure Container Registry, environment-based secrets management, and auto-scaling (scale-to-zero when idle, up to 3 replicas under load). It ran on an Azure free-credit subscription.
 
-**Live URL:** https://fluxorx-app.redsky-65d53030.eastus.azurecontainerapps.io/
+**Status:** the free credit ended in October 2026 and the subscription, with its services, was removed. The Azure URL no longer works, and it has been taken out of this README on purpose. The application database was on Supabase, not Azure, so no application data was lost. The same Docker image and settings are in this repo, so it can be redeployed to Azure Container Apps when a demo needs it. Use the Vercel link above for the live demo.
 
 ### Kubernetes (Local Cluster)
 
@@ -329,6 +346,16 @@ Shows live CPU usage against a 70% target, with replica count floating between 2
 
 ---
 
+## Project History
+
+- **First build:** FluxorX was built in 48 hours to a client-style brief for a solar business, using the acceptance criteria listed below. The sample data (Greaves Solar records) is demo data.
+- **Two-tier AI:** the first version answered only through the deterministic engine. A Claude tier was added later for open-ended questions, with Langfuse tracing and an MCP server.
+- **Containers:** Docker, Kubernetes manifests (tested on a local Minikube cluster) and an Azure Container Apps deployment were added to show the same image running in different environments.
+- **Azure retired:** the Azure free credit ended in October 2026, so that deployment was removed. Vercel remains the live demo.
+- **README catch-up:** an earlier version of this README still described the agent as having "zero LLM dependency" and listed Claude as planned. It has been corrected to match the code.
+
+---
+
 ## Milestone 2 Roadmap
 
 | Priority | Feature | Status |
@@ -336,13 +363,13 @@ Shows live CPU usage against a 70% target, with replica count floating between 2
 | 1 | Google Sheets Live Connector (OAuth 2.0) | Planned |
 | 2 | Custom Email Domain via Resend | Planned |
 | 3 | WhatsApp Business API Activation | Planned |
-| 4 | Claude API Upgrade (optional tier) | Planned |
+| 4 | Claude API tier | Delivered (Tier 2, Claude Haiku 4.5) |
 | 5 | User Management Panel (invite + roles) | Planned |
 | 6 | QuickBooks Live Connector | Planned |
 | 7 | Interactive Column Mapper (drag and drop) | Planned |
 | 8 | Salesforce Connector | Planned |
 | 9 | Multi-source Data Merge | Planned |
-| 10 | MCP Integration (agent actions in external systems) | Planned |
+| 10 | MCP Integration | Partly delivered: 8 read-only query tools. Agent actions in external systems are planned |
 
 ---
 
